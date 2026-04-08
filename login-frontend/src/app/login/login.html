@@ -1,14 +1,87 @@
-<div class="login-container">
-  <h2>Login - Interfaz de Usuario ISPC</h2>
-  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-    <div>
-      <label for="username">Username:</label>
-      <input type="text" id="username" formControlName="username" required>
+<div class="flex items-center justify-center min-h-screen bg-gray-900 font-body">
+  <div class="w-full max-w-md p-8 space-y-6 bg-gray-800 rounded-xl shadow-lg">
+
+    <header class="text-center font-heading">
+      <h1 class="text-4xl font-bold text-white">Bienvenido de vuelta</h1>
+      <p class="text-gray-400 mt-2">Ingresa tus datos para continuar</p>
+    </header>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="space-y-6">
+
+      @if (errorMessage) {
+        <div class=" text-red-300 px-4 py-3 rounded-lg text-center" role="alert">
+          <span>{{ errorMessage }}</span>
+        </div>
+      }
+
+      <div class="text-center flex flex-col">
+        <label for="username" class="text-m  text-white m-1">Usuario</label>
+        <input 
+          id="username"
+          formControlName="username"
+          type="text"
+          placeholder="tu-usuario"
+      class="w-full px-4 py-2 bg-gray-700  rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 "
+          [ngClass]="{ 'border-none focus:ring-red-400': loginForm.get('username')?.invalid && (loginForm.get('username')?.dirty || loginForm.get('username')?.touched) }"
+        />
+      
+        @if (loginForm.get('username')?.invalid && (loginForm.get('username')?.dirty || loginForm.get('username')?.touched)) {
+          <div class="text-red-400 text-xs mt-1 text-center">
+            @if (loginForm.get('username')?.errors?.['required']) {
+              <p>El usuario es requerido.</p>
+            }
+            @if (loginForm.get('username')?.errors?.['minlength']) {
+              <p>Debe tener al menos 4 caracteres.</p>
+            }
+            @if (loginForm.get('username')?.errors?.['maxlength']) {
+              <p>Debe tener como máximo 40 caracteres.</p>
+            }
+          </div>
+      </div>
+
+      <div class="text-center flex flex-col">
+        <label for="password" class="text-m  text-white m-1">Contraseña</label>
+        <input 
+          id="password"
+          formControlName="password"
+          type="password"
+          placeholder="Ingresa tu contraseña" 
+          class="w-full px-4 py-2 bg-gray-700  rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 "
+          [ngClass]="{ 'border-none focus:ring-red-400': loginForm.get('password')?.invalid && (loginForm.get('password')?.dirty || loginForm.get('password')?.touched) }"
+        />
+        <!-- Bloque de errores de validación con @if -->
+        @if (loginForm.get('password')?.invalid && (loginForm.get('password')?.dirty || loginForm.get('password')?.touched)) {
+          <div class="text-red-400 text-xs mt-1 pl-1 text-center">
+            @if (loginForm.get('password')?.errors?.['required']) {
+              <p>La contraseña es requerida.</p>
+            }
+            @if (loginForm.get('password')?.errors?.['minlength']) {
+              <p>La contraseña debe tener al menos 8 caracteres.</p>
+            }
+          </div>
+        }
+      </div>
+
+      <div class="text-right">
+        <a routerLink="/forgot-password" class="text-sm text-gray-400 hover:text-purple-300 hover:underline">
+          ¿Olvidaste tu contraseña?
+        </a>
+      </div>
+
+      <div>
+        <button 
+          type="submit"
+          [disabled]="loginForm.invalid"
+          class="w-full py-3 px-4 bg-linear-to-r from-purple-600 to-indigo-800 text-white font-bold rounded-lg  hover:from-purple-700 hover:to-indigo-700 focus:outline-none focus:ring-2 ">
+          Iniciar Sesión
+        </button>
+      </div>
+    </form>
+
+    <div class="text-center">
+      <p class=" text-gray-400 text-sm">¿No tienes una cuenta? 
+        <a routerLink="/register" class=" ms-1 font-medium text-purple-400 hover:text-purple-300 hover:underline">Regístrate</a>
+      </p>
     </div>
-    <div>
-      <label for="password">Password:</label>
-      <input type="password" id="password" formControlName="password" required>
-    </div>
-    <button type="submit" [disabled]="!loginForm.valid">Login</button>
-  </form>
+  </div>
 </div>

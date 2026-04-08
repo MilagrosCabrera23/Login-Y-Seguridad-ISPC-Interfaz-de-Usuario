@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
+import { AuthService } from '../core/services/auth';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
@@ -12,26 +12,36 @@ import { CommonModule } from '@angular/common';
 })
 export class Login {
   private fb = inject(FormBuilder);
-  private http = inject(HttpClient);
+  private authService = inject(AuthService);
   private router = inject(Router);
 
+  errorMessage: string | null = null;
+
   loginForm: FormGroup = this.fb.group({
-    username: ['', Validators.required],
-    password: ['', Validators.required]
+    username: [
+      '',
+      [
+      Validators.required,
+      Validators.minLength(4),
+      Validators.maxLength(40)],
+    ],
+    password: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(128)]],
   });
 
   onSubmit() {
     if (this.loginForm.valid) {
+      this.errorMessage = null;
       const { username, password } = this.loginForm.value;
-      this.http.post('http://localhost:8000/api/login/', { username, password }).subscribe({
+
+      this.authService.login(username, password).subscribe({
         next: (response) => {
-          console.log('Login successful', response);
+          console.log('Login exitoso:', response);
           this.router.navigate(['/home']);
         },
         error: (error) => {
-          console.error('Login failed', error);
-          // Handle error
-        }
+          console.error('Login fallido:', error);
+          this.errorMessage = 'Credenciales inválidas. Por favor, inténtalo de nuevo.';
+        },
       });
     }
   }
