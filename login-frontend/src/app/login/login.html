@@ -37,6 +37,7 @@
               <p>Debe tener como máximo 40 caracteres.</p>
             }
           </div>
+        }
       </div>
 
       <div class="text-center flex flex-col">
@@ -46,10 +47,9 @@
           formControlName="password"
           type="password"
           placeholder="Ingresa tu contraseña" 
-          class="w-full px-4 py-2 bg-gray-700  rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 "
+          class="w-full px-4 py-2 bg-gray-700  rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2"
           [ngClass]="{ 'border-none focus:ring-red-400': loginForm.get('password')?.invalid && (loginForm.get('password')?.dirty || loginForm.get('password')?.touched) }"
         />
-        <!-- Bloque de errores de validación con @if -->
         @if (loginForm.get('password')?.invalid && (loginForm.get('password')?.dirty || loginForm.get('password')?.touched)) {
           <div class="text-red-400 text-xs mt-1 pl-1 text-center">
             @if (loginForm.get('password')?.errors?.['required']) {
