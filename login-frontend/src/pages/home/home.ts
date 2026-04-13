@@ -2,7 +2,7 @@ import { Component,inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Observable } from 'rxjs';
-import { AuthService, User } from '../core/services/auth';
+import { AuthService, User } from '../../app/core/services/auth';
 
 @Component({
   selector: 'app-home',
