@@ -7,7 +7,7 @@ import { AuthService } from '../services/auth';
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const authService = inject(AuthService);
   const router = inject(Router);
-  const accessToken = localStorage.getItem('accessToken');
+  const accessToken = authService.getItem('accessToken');
 
   let  authreq = req;
 
