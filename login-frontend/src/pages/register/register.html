@@ -30,7 +30,7 @@
       </div>
 
       <div class="pt-2">
-        <button type="submit" [disabled]="registerForm.invalid || isLoading" class="w-full py-3 px-4 bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-bold rounded-lg shadow-md disabled:opacity-50 disabled:cursor-not-allowed">
+        <button type="submit" [disabled]="registerForm.invalid || isLoading" class="w-full py-3 px-4 bg-linear-to-r from-purple-600 to-indigo-600 text-white font-bold rounded-lg shadow-md disabled:opacity-50 disabled:cursor-not-allowed">
           @if (isLoading) { <span>Creando cuenta...</span> } @else { <span>Registrarse</span> }
         </button>
       </div>

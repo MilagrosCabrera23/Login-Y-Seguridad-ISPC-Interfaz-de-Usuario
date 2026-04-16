@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { AuthService } from '../core/services/auth';
+import { AuthService } from '../../app/core/services/auth';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
@@ -26,14 +26,15 @@ export class Login {
       Validators.maxLength(40)],
     ],
     password: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(128)]],
+    rememberMe: [false],
   });
 
   onSubmit() {
     if (this.loginForm.valid) {
       this.errorMessage = null;
-      const { username, password } = this.loginForm.value;
+      const { username, password, rememberMe } = this.loginForm.value;
 
-      this.authService.login(username, password).subscribe({
+      this.authService.login(username, password,rememberMe).subscribe({
         next: (response) => {
           console.log('Login exitoso:', response);
           this.router.navigate(['/home']);

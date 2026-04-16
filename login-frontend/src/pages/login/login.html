@@ -62,7 +62,18 @@
         }
       </div>
 
-      <div class="text-right">
+      <div class="flex items-center justify-between py-2">
+        <div class="flex items-center space-x-2">
+          <input 
+            type="checkbox" 
+            id="rememberMe" 
+            class="w-4 h-4 text-violet-primary bg-dark-bg border-dark-border rounded focus:ring-violet-primary"
+            (change)="onRememberMeChange($event)"
+          >
+          <label for="rememberMe" class="text-sm text-gray-400 cursor-pointer">
+            Recordarme para la próxima vez
+          </label>
+        </div>
         <a routerLink="/forgot-password" class="text-sm text-gray-400 hover:text-purple-300 hover:underline">
           ¿Olvidaste tu contraseña?
         </a>

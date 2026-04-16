@@ -6,7 +6,7 @@ export const publicGuard : CanActivateFn = () => {
   const authService = inject(AuthService);
   const router = inject(Router);
 
-  const isAuthenticated = !!authService.currentUser$;
+  const isAuthenticated = !!authService.currentUserValue || localStorage.getItem('accessToken');
 
   if(isAuthenticated){
     console.log('Usuario autenticado, redirigiendo a /home');
